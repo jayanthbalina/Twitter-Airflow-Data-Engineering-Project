@@ -1,32 +1,47 @@
-In this project, I am building an ETL (Extract, Transform, Load) pipeline to gather Twitter data and store it for further analysis. Here's a detailed description of the project and what I am achieving with this:
+# Twitter ETL Pipeline Project
 
-Project Overview:
-The goal of this project is to extract tweets from a specific user account (in this case, @elonmusk), transform the data by cleaning and refining it, and load it into a storage system like AWS S3 or save it locally for further analysis. The pipeline is orchestrated using Apache Airflow for automation, scheduling, and management.
+## Project Overview
+The goal of this project is to build an ETL (Extract, Transform, Load) pipeline that gathers tweets from a specific user account, transforms the data for usability, and loads it into a storage system for further analysis. The pipeline is orchestrated using Apache Airflow, enabling automation, scheduling, and management of the data workflow.
 
-Key Components:
-Twitter Data Extraction:
-I use the Tweepy library to authenticate with the Twitter API, leveraging credentials like access_key, access_secret, consumer_key, and consumer_secret.
-The pipeline extracts up to 200 tweets from the @elonmusk Twitter account, excluding retweets, and ensures that the full text of each tweet is captured.
-Data Transformation:
+## Key Components
 
-The raw tweet data is refined to include only the relevant fields such as:
-user: The username of the tweet author.
-text: The content of the tweet.
-favorite_count: The number of likes the tweet received.
-retweet_count: The number of retweets.
-created_at: The timestamp of the tweet.
-The transformation step ensures that the data is organized and structured in a usable format (a Pandas DataFrame).
+### 1. Twitter Data Extraction
+- **Library Used**: [Tweepy](https://www.tweepy.org/)
+- **Authentication**: I authenticate with the Twitter API using the following credentials:
+  - `access_key`
+  - `access_secret`
+  - `consumer_key`
+  - `consumer_secret`
+- **Data Extraction**: The pipeline extracts up to 200 tweets from the @elonmusk Twitter account, excluding retweets, and captures the full text of each tweet.
 
-Data Loading:
-The refined tweets are saved as a CSV file (refined_tweets.csv). In the production environment, this CSV could be uploaded to cloud storage such as AWS S3 for further analysis or reporting.
+### 2. Data Transformation
+The raw tweet data is refined to include only relevant fields:
+- **user**: The username of the tweet author.
+- **text**: The content of the tweet.
+- **favorite_count**: The number of likes the tweet received.
+- **retweet_count**: The number of retweets.
+- **created_at**: The timestamp of the tweet.
 
-Airflow Integration:
-I use Apache Airflow to automate the entire ETL process. A DAG (Directed Acyclic Graph) is created with a task that triggers the run_twitter_etl() function daily (schedule_interval=timedelta(days=1)).
-The task ensures that the pipeline runs at regular intervals, automatically fetching the latest tweets and updating the dataset.
+This transformation step organizes the data into a structured format using a Pandas DataFrame, making it easier to work with.
 
-Future Steps:
-I can expand the project to analyze the collected tweets, such as performing sentiment analysis, tracking trends over time, or exploring engagement metrics (likes and retweets).
-The ETL pipeline can also be modified to gather data from multiple Twitter accounts or hashtags, making it a versatile tool for social media analytics.
+### 3. Data Loading
+- The refined tweets are saved as a CSV file named `refined_tweets.csv`.
+- In a production environment, this CSV file could be uploaded to cloud storage, such as AWS S3, for further analysis or reporting.
 
-Conclusion:
-This project allows me to build a fully automated ETL pipeline using Airflow to collect and refine real-time Twitter data. The refined data can then be used for deeper analysis, providing valuable insights into social media activity.
+### 4. Airflow Integration
+- **Orchestration**: I use Apache Airflow to automate the entire ETL process.
+- **DAG Creation**: A Directed Acyclic Graph (DAG) is created with a task that triggers the `run_twitter_etl()` function daily.
+  - **Schedule**: `schedule_interval=timedelta(days=1)` ensures that the pipeline runs at regular intervals, automatically fetching the latest tweets and updating the dataset.
+
+## Future Steps
+- **Data Analysis**: Future expansions of the project can include analyzing the collected tweets, such as performing sentiment analysis, tracking trends over time, or exploring engagement metrics (likes and retweets).
+- **Extended Data Gathering**: The ETL pipeline can be modified to gather data from multiple Twitter accounts or specific hashtags, enhancing its versatility as a social media analytics tool.
+
+## Conclusion
+This project enables the development of a fully automated ETL pipeline using Apache Airflow to collect and refine real-time Twitter data. The refined data can then be utilized for deeper analysis, providing valuable insights into social media activity and engagement.
+
+## Skills and Technologies
+- **Programming Language**: Python
+- **Libraries**: Tweepy, Pandas
+- **Data Orchestration**: Apache Airflow
+- **Cloud Storage**: AWS S3 (optional for future use)
